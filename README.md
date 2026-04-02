@@ -1,29 +1,31 @@
 # MedDesk
 
-An AI-powered patient support chatbot built with Flask and the Anthropic Claude API. MedDesk automates patient helpdesk workflows by answering billing questions, explaining coverage, and escalating complex cases to human representatives — with personalized responses based on each patient's plan data.
+An AI-powered patient help desk built with Flask, the Anthropic Claude API, and a real-time ML pipeline. MedDesk automates patient helpdesk workflows by analyzing patient messages, routing them by intent, and generating personalized responses grounded in each patient's plan data.
 
 ---
 
 ## What It Does
 
-Patients enter their name and policy number, then chat with MedDesk in a real-time conversational interface. The assistant:
+Patients enter their name and policy number, then chat with MedDesk in a conversational interface. Before each message reaches Claude, it passes through two ML models:
 
-- Looks up the patient by policy number in a SQLite database and injects their plan details into the AI's context for personalized responses
-- Answers billing and coverage questions using a master policy document as its only knowledge source
-- Maintains full conversation history within a session so patients can ask follow-up questions
-- Detects profanity and automatically escalates the session to a human representative
-- Logs every interaction to an audit trail with timestamps, escalation flags, and full message content
+- **Sentiment analysis** — a DistilBERT model detects the patient's tone and instructs Claude to respond with the appropriate level of empathy
+- **Intent classification** — a zero-shot BART model classifies the message into billing, coverage, escalation, or general, and routes it to a focused prompt
+
+The assistant then:
+- Looks up the patient by policy number in a SQLite database and injects their plan details into Claude's context
+- Answers billing and coverage questions using a master policy document
+- Maintains full conversation history within a session, allowing for follow-up questions
+- Detects profanity and requests for human representatives and automatically escalates
+- Logs every interaction to an audit trail
 
 ---
 
 ## Features
 
-- **Patient database** — SQLite database stores patient records; policy number lookup at session start injects each patient's plan type, deductible status, and service history directly into the AI's system prompt for personalized responses
-- **Patient intake** — name and policy number collected at session start, used throughout the conversation
+- **Patient database** — SQLite database stores patient records; policy number lookup at session start injects each patient directly into the AI's system prompt for personalized responses
 - **Stateful conversation history** — full multi-turn context on every message so patients can ask follow-up questions
-- **Master policy document** — loaded server-side; Claude answers only from this document
 - **Smart escalation** — profanity triggers automatic escalation
-- **Audit logging** — all interactions written to audit logs with timestamp, patient info, message, response, and escalation status
+- **Audit logging** — all interactions written to audit logs
 - **Session expiry** — sessions expire after 30 minutes of inactivity
 
 ---
@@ -33,8 +35,8 @@ Patients enter their name and policy number, then chat with MedDesk in a real-ti
 - **Python** — core language
 - **Flask** — web framework and session management
 - **Anthropic Claude API** — `claude-opus-4-5` via the `anthropic` Python SDK
+- **HuggingFace Transformers** — DistilBERT and BART inference pipeline
 - **SQLite** — lightweight patient database
-- **python-dotenv** — environment variable management
 - **Vanilla HTML/CSS/JS** — frontend
 
 ---
@@ -79,5 +81,9 @@ Open `http://127.0.0.1:5001` in your browser.
 
 ## Future Improvements
 
-- **Multi-model support** — abstract the AI layer to support multiple LLM providers (OpenAI, Google Gemini, etc.)
-- **Persistent session history** — store conversation history in the database so returning patients have continuity across sessions
+- Raw PyTorch inference — rewrite sentiment model without pipeline wrapper
+- Supabase — migrate patient database to cloud PostgreSQL
+- Persistent session history — store conversation history across sessions
+- Multi-model support — abstract AI layer to swap between Claude, GPT, Gemini
+- RAG — replace hardcoded policy document with vector search over uploaded PDFs
+- Escalation summary report — structured case summary generated on escalation
