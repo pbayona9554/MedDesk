@@ -5,8 +5,14 @@ from dotenv import load_dotenv
 from data.policy import POLICY
 from config.prompts import ACTIVE_PROMPT
 from datetime import datetime, timedelta
+from database import init_db, seed_db, get_patient
 
+#load .env
 load_dotenv()
+
+#initialize and seed db 
+init_db() 
+seed_db()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
@@ -33,13 +39,19 @@ def chat():
     name = " ".join(word.capitalize() for word in name.strip().split())
     policy_number = data.get("policy", "Unknown")
 
+    patient = get_patient(policy_number)
+    if patient:
+        patient_context = f"Patient on file: Name: {patient[1]}, Plan: {patient[2]}, Deductible met: ${patient[3]}, Last Service: {patient[4]} on {patient[5]}"
+    else:
+        patient_context = "No patient record found for this policy number."
+    
     conversation_history = session.get("history", []) #read from session
     conversation_history.append({"role": "user", "content": message}) #append new message
 
     response = client.messages.create(
         model="claude-opus-4-5",
         max_tokens=1024,
-        system=ACTIVE_PROMPT.format(policy=POLICY),
+        system=ACTIVE_PROMPT.format(policy=POLICY, patient_context=patient_context),
         messages=conversation_history #send to claude
     )
     

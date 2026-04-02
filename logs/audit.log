@@ -100,3 +100,39 @@ MEDDESK: I understand this has been frustrating, and I'm sorry to hear you've ha
 
 In the meantime, if you have any other questions, I'm here to help. Is there anything else I can assist you with?
 ---
+[2026-04-01 22:37:20] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False
+USER: what is my deductible status?
+MEDDESK: Based on your account information, you have a PPO plan with an individual annual deductible of $1,500. So far, you have met $800 of that deductible, which means you have $700 remaining before your deductible is fully satisfied for the year.
+
+Once you reach the full $1,500, your plan will begin covering services at the standard rates, such as 80% coverage for outpatient surgery. Keep in mind that your deductible resets every January 1st.
+
+Is there anything else I can help you with regarding your coverage or billing?
+---
+[2026-04-01 22:45:54] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False
+USER: what is my deductible status?
+MEDDESK: Hi Jane! Based on your account information, you have a PPO plan with an annual individual deductible of $1,500. So far, you've met $800 of that deductible, which means you have $700 remaining before your deductible is fully satisfied for the year.
+
+Once you reach the full $1,500, your plan will begin covering services at the standard rates, such as 80% coverage for outpatient surgery. Keep in mind that your deductible resets every January 1st.
+
+Is there anything else I can help you with regarding your coverage or billing?
+---
+[2026-04-01 22:46:57] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False
+USER: what was my last service?
+MEDDESK: Your last service on file was an Emergency Medicine visit on January 1, 2026.
+
+Since this service was after October 1, 2025, any billing questions related to this visit would be handled through the Ventra system. If you need to reach out about this bill, you can contact them at 800-603-6571 or email SoundEMHM@ventrahealth.com.
+
+Is there anything else you'd like to know about this visit or your account?
+---
+[2026-04-01 22:47:26] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False
+USER: what was my last service?
+MEDDESK: Your last service on file is still the same as I just mentioned — an Emergency Medicine visit on January 1, 2026.
+
+Is there something specific about that visit you'd like help with, such as billing questions or understanding your coverage?
+---
+[2026-04-01 22:48:14] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False
+USER: what is my plan type?
+MEDDESK: You have a PPO, which stands for Preferred Provider Organization. This type of plan typically gives you more flexibility in choosing healthcare providers and doesn't require referrals to see specialists.
+
+Is there anything else you'd like to know about your plan or coverage?
+---
