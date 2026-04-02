@@ -136,3 +136,37 @@ MEDDESK: You have a PPO, which stands for Preferred Provider Organization. This 
 
 Is there anything else you'd like to know about your plan or coverage?
 ---
+[2026-04-02 11:08:18] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False | SENTIMENT: NEGATIVE (0.9975)
+USER: "Can you explain what my deductible covers?"
+MEDDESK: I understand you'd like clarity on how your deductible works, and I'm happy to help explain that for you.
+
+Your deductible is the amount you pay out of pocket for covered healthcare services before your insurance plan starts to share the costs. Based on your PPO plan, you have an individual deductible of $1,500 per year, and I can see you've already met $800 of that so far.
+
+This means you have $700 remaining before your deductible is fully met for the year. Until you reach that $1,500 threshold, you'll be responsible for paying the full cost of most covered services. Once your deductible is met, your plan will begin covering a larger portion of your costs. For example, outpatient surgery would then be covered at 80 percent, with you paying the remaining 20 percent.
+
+It's worth noting that some services have flat copays that apply regardless of whether your deductible is met. For instance, primary care visits have a $25 copay, specialist visits are $60, and emergency room visits have a $250 copay.
+
+Your deductible resets every January 1st, so you'll start fresh at the beginning of each calendar year.
+
+Is there anything specific about your recent emergency medicine visit or upcoming care that I can help clarify further?
+---
+[2026-04-02 11:09:12] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False | SENTIMENT: NEGATIVE (0.9995)
+USER: I'm really worried about my bill, I don't understand what I owe
+MEDDESK: I completely understand how stressful it can be to feel uncertain about what you owe, and I want to help put your mind at ease.
+
+Based on your records, your most recent service was an Emergency Medicine visit on January 1, 2026. Since this date is after October 1, 2025, your bill will come through the Ventra billing system. You should receive a text message when your bill is ready, and that text is legitimate, not spam.
+
+For your emergency room visit, you would typically have a $250 copay. However, since you still have $700 remaining on your deductible, you may also be responsible for a portion of other charges until that deductible is fully met. The exact amount you owe will depend on what services were provided during your visit and how your insurance processes the claim.
+
+If you've already received a bill and want to understand the specific charges, or if you have questions about what's been applied to your deductible, the best step would be to contact the billing team directly. For Emergency Medicine services after October 1, 2025, you can reach them at 800-603-6571 or email SoundEMHM@ventrahealth.com. They can walk you through your bill line by line and answer any questions.
+
+Would you like help with anything else, such as understanding your out-of-pocket maximum or payment options?
+---
+[2026-04-02 11:10:01] NAME: Jane Smith | POLICY: SC-2024-001 | ESCALATED: False | SENTIMENT: NEGATIVE (0.9997)
+USER: This is ridiculous, I've been waiting weeks and nobody has helped me
+MEDDESK: I'm really sorry you've been dealing with this for weeks without getting the help you need. That's incredibly frustrating, and I can understand why you're upset. You deserve clear answers and timely support.
+
+I want to make sure we get this resolved for you. Can you tell me a bit more about what's been happening? For example, have you received a bill that seems incorrect, are you waiting on a response from someone you already contacted, or is there something specific about your charges that hasn't been explained? The more you can share, the better I can point you in the right direction or help escalate this if needed.
+
+I'm here to help you work through this.
+---
