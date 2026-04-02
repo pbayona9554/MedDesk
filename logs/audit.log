@@ -1,0 +1,102 @@
+[2026-04-01 19:51:08] NAME: jane smith | POLICY: SC-3030 | ESCALATED: False
+USER: who do i call for billing
+MEDDESK: The billing contact depends on your date of service and the type of care you received. Since you mentioned anesthesia services on September 5, 2025, the correct contact would be:
+
+Phone: 866-452-9765
+Email: SNDAbilling@mydocbill.com
+Patient Portal: www.mydocbill.com/snda
+
+If you have questions about a different type of service, here are the other contacts for services on or before September 30, 2025:
+
+Hospital Medicine and Critical Care:
+Phone: 866-765-0513
+Email: SNDPbilling@mydocbill.com
+Patient Portal: www.mydocbill.com/sndp
+
+Emergency Medicine:
+Phone: 866-535-5215
+Email: SNEDbilling@mydocbill.com
+Patient Portal: www.mydocbill.com/sned
+
+If your service was at one of the special HRC Billing locations such as Texoma Medical Center, Northwest Texas Healthcare System, Bonham Hospital, Temecula Valley Hospital, or St. Mary's Regional Medical Center, you would need to contact HRC Billing separately.
+
+Is there anything else I can help you with?
+---
+[2026-04-01 19:58:10] NAME: Jane Smith | POLICY: sc202020 | ESCALATED: False
+USER: who do i call for billing
+MEDDESK: Since your anesthesia service was on September 5, 2025, you should call:
+
+Phone: 866-452-9765
+
+Is there anything else I can help you with?
+---
+[2026-04-01 19:58:48] NAME: Jane Smith | POLICY: sc202020 | ESCALATED: False
+USER: its for a different procedure
+MEDDESK: No problem! To give you the right contact, could you let me know what type of service or procedure it was? For example, was it:
+
+- Hospital Medicine or Critical Care
+- Emergency Medicine
+- Anesthesia
+- Telemedicine
+
+Also, what was the date of service? That will help me point you to the correct billing team.
+---
+[2026-04-01 20:01:30] NAME: Jane Smith | POLICY: sc2020202 | ESCALATED: False
+USER: whats my coverage
+MEDDESK: I don't have access to your personal account or insurance details, so I can't tell you specifics like how much of your deductible you've met or your exact plan benefits.
+
+However, I can share the general coverage outlined in Sound Physicians' policy:
+
+Annual Deductibles: $1,500 for an individual or $3,000 for a family, resetting each January 1st.
+
+Copays: Primary care visits are $25, specialist visits are $60, urgent care is $75, emergency room visits are $250, telemedicine visits are $20, and telemedicine mental health visits are $15.
+
+Outpatient Surgery: Covered at 80% after your deductible is met, with you responsible for the remaining 20% up to your out-of-pocket maximum.
+
+Out-of-Pocket Maximum: $5,000 for an individual or $10,000 for a family. Once you reach this limit, the plan covers 100% of covered services for the rest of the year.
+
+Prescription Drugs: Generic medications have a $10 copay, brand-name medications are $40, and specialty drugs are $100.
+
+Mental Health Services: Covered at the same rate as primary care, with a $25 copay for in-person sessions and $15 for telehealth sessions.
+
+For information specific to your personal coverage, I recommend calling 855-768-6363 or contacting your insurance provider directly.
+
+Is there anything else I can help you with?
+---
+[2026-04-01 20:02:23] NAME: Jane Smith | POLICY: sc2020202 | ESCALATED: False
+USER: can i talk to someone
+MEDDESK: Of course! Before I connect you with a representative, could you please explain what you need help with? That way, I can make sure your case is directed to the right person.
+---
+[2026-04-01 20:02:40] NAME: Jane Smith | POLICY: sc2020202 | ESCALATED: False
+USER: can i just connect to someone
+MEDDESK: I understand you'd like to speak with someone directly. To make sure we get you to the right person who can best assist you, could you briefly share what issue or question you're trying to resolve? For example, is it related to billing, a specific procedure, insurance coverage, or something else?
+---
+[2026-04-01 20:02:56] NAME: Jane Smith | POLICY: sc2020202 | ESCALATED: False
+USER: billing
+MEDDESK: Thank you for letting me know. Could you tell me a bit more about your billing concern? For example, are you trying to understand a charge on your bill, make a payment, request a refund, or something else? Also, what type of service was it (such as emergency medicine, hospital medicine, anesthesia, or critical care) and what was the date of service? This will help ensure you're connected with the right team.
+---
+[2026-04-01 20:03:12] NAME: Jane Smith | POLICY: sc2020202 | ESCALATED: False
+USER: understand a charge on my bill
+MEDDESK: Thank you for that information. To connect you with the right billing team, I just need a couple more details:
+
+What type of service was it? For example, emergency medicine, hospital medicine, critical care, anesthesia, or telemedicine?
+
+And what was the date of service?
+---
+[2026-04-01 20:03:29] NAME: Jane Smith | POLICY: sc2020202 | ESCALATED: True
+USER: emergency medicine jan 1 2026
+MEDDESK: Thank you for providing those details. Since your emergency medicine service was on January 1, 2026, a representative from the Ventra billing team will be able to help you understand the charge on your bill. A representative will be in touch with you soon.
+
+In the meantime, if you'd like to reach out directly, you can contact them at:
+
+Phone: 800-603-6571
+Email: SoundEMHM@ventrahealth.com
+
+Is there anything else I can help you with?
+---
+[2026-04-01 20:04:13] NAME: Jane Smith | POLICY: sc2020202 | ESCALATED: True
+USER: shit i dont like the people at vetra
+MEDDESK: I understand this has been frustrating, and I'm sorry to hear you've had a difficult experience. Your case is being escalated to a representative who will be in touch with you to help resolve your billing concern.
+
+In the meantime, if you have any other questions, I'm here to help. Is there anything else I can assist you with?
+---

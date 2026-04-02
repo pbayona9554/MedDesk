@@ -1,70 +1,65 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session
 import anthropic
 import os
 from dotenv import load_dotenv
+from data.policy import POLICY
+from config.prompts import ACTIVE_PROMPT
+from datetime import datetime, timedelta
 
 load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY")
+app.permanent_session_lifetime = timedelta(minutes=30)
+
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-@app.route('/triage', methods=['POST'])
-def triage():
-    data = request.get_json()
-    ticket = data["ticket"]
-
-    response = client.messages.create(
-        model="claude-opus-4-5",
-        max_tokens=1024,
-        messages=[
-            {"role": "user", "content": f"You are a ticket triage assistant. Here is the ticket: {ticket} you will read this ticket and determine its priority (low, medium, or high) then you will categorize it as a technical issue, billing issue, account issue, or a general issue. you will then provide a suggest a solution, and forward it to the corresponding department. respond using these exact labels: Priority: / Category: / Suggested Resolution: / Route To:"}
-        ]
-    )
-
-    result = response.content[0].text
-    return jsonify({"result": result})
-
-@app.route('/qa', methods=['POST'])
-def qa():
-
-    data = request.get_json()
-    question = data["question"]
-
-    document = data["document"]
-
-    response = client.messages.create(
-        model="claude-opus-4-5",
-        max_tokens=1024,
-        messages=[
-            {"role": "user", "content": f"you are responding to a client in a health setting. using this document {document} you will answer their question {question}. please answer their question only using the information in the document, and if it's not available in the document tell the client you will escalate it to the correct department"}
-        ]
-    )
-    
-    result = response.content[0].text
-    return jsonify({"result": result})
-
-@app.route('/summarize', methods=['POST'])
-def summarize():
-
-    data = request.get_json()
-    text = data["text"]
-
-    response = client.messages.create(
-        model="claude-opus-4-5",
-        max_tokens=1024,
-        messages=[
-            {"role": "user", "content": f"read the input {text} and respond with a headline(a sentence capturing the main point) the key points (the most imporant takeaways) the overall sentiment (the tone) and action items (anything that requires a follow-up and or decision)"}
-        ]
-    )
-
-    result = response.content[0].text
-    return jsonify({"result": result})
+def write_audit_log(name, policy_number, message, result, escalated):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    entry = f"[{timestamp}] NAME: {name} | POLICY: {policy_number} | ESCALATED: {escalated}\nUSER: {message}\nMEDDESK: {result}\n---\n"
+    with open("logs/audit.log", "a") as f:
+        f.write(entry)
 
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
 
+@app.route('/chat', methods=['POST'])
+def chat():
+
+    data = request.get_json() #get message from request
+    message = data["message"] 
+    name = data.get("name", "Patient")
+    name = " ".join(word.capitalize() for word in name.strip().split())
+    policy_number = data.get("policy", "Unknown")
+
+    conversation_history = session.get("history", []) #read from session
+    conversation_history.append({"role": "user", "content": message}) #append new message
+
+    response = client.messages.create(
+        model="claude-opus-4-5",
+        max_tokens=1024,
+        system=ACTIVE_PROMPT.format(policy=POLICY),
+        messages=conversation_history #send to claude
+    )
+    
+    result = response.content[0].text
+    
+    escalated = False
+
+    if "ESCALATE: profanity" in result:
+        result = result.replace("ESCALATE: profanity", "").strip()
+        escalated = True
+    
+    if "ESCALATE: human requested" in result:
+        result = result.replace("ESCALATE: human requested", "").strip()
+        escalated = True
+
+    write_audit_log(name, policy_number, message, result, escalated)
+    conversation_history.append({"role": "assistant", "content": result}) #append response + save to session
+    session["history"] = conversation_history
+
+    return jsonify({"result": result, "escalated": escalated})
+
 if __name__ == '__main__':
     app.run(debug = True, port=5001)
-
-
