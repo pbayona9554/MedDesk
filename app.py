@@ -7,6 +7,7 @@ from config.prompts import ACTIVE_PROMPT
 from datetime import datetime, timedelta
 from database import init_db, seed_db, get_patient
 from ml.sentiment import analyze_sentiment
+from ml.intent import classify_intent
 
 # Load environment variables from .env
 load_dotenv()
@@ -22,12 +23,13 @@ app.permanent_session_lifetime = timedelta(minutes=30)
 # Initialize the Anthropic client
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-def write_audit_log(name, policy_number, message, result, escalated, sentiment_label, sentiment_score):
+def write_audit_log(name, policy_number, message, result, escalated, sentiment_label, sentiment_score, intent, intent_score):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # Includes sentiment data so we can analyze patient tone patterns over time
+    # Includes sentiment and intent data for pattern analysis over time
     entry = (
         f"[{timestamp}] NAME: {name} | POLICY: {policy_number} | "
-        f"ESCALATED: {escalated} | SENTIMENT: {sentiment_label} ({sentiment_score})\n"
+        f"ESCALATED: {escalated} | SENTIMENT: {sentiment_label} ({sentiment_score}) | "
+        f"INTENT: {intent} ({intent_score})\n"        
         f"USER: {message}\n"
         f"MEDDESK: {result}\n---\n"
     )
@@ -43,8 +45,6 @@ def chat():
     data = request.get_json()
     message = data["message"]
     name = data.get("name", "Patient")
-
-    # Normalize patient name to title case
     name = " ".join(word.capitalize() for word in name.strip().split())
     policy_number = data.get("policy", "Unknown")
 
@@ -66,6 +66,13 @@ def chat():
     sentiment_score = sentiment["score"]
     tone_hint = sentiment["tone_hint"]
 
+    # --- INTENT CLASSIFICATION ---
+    # Detects what the patient is asking about and generates a focused instruction for Claude
+    intent_result = classify_intent(message)
+    intent = intent_result["intent"]
+    intent_score = intent_result["score"]
+    intent_hint = intent_result["intent_hint"]
+
     # Read existing conversation history from session
     conversation_history = session.get("history", [])
 
@@ -80,7 +87,8 @@ def chat():
         system=ACTIVE_PROMPT.format(
             policy=POLICY,
             patient_context=patient_context,
-            tone_hint=tone_hint
+            tone_hint=tone_hint,
+            intent_hint=intent_hint
         ),
         messages=conversation_history
     )
@@ -97,7 +105,7 @@ def chat():
         escalated = True
 
     # Write to audit log — now includes sentiment data
-    write_audit_log(name, policy_number, message, result, escalated, sentiment_label, sentiment_score)
+    write_audit_log(name, policy_number, message, result, escalated, sentiment_label, sentiment_score, intent, intent_score)
 
     # Append Claude's response to history and save back to session
     conversation_history.append({"role": "assistant", "content": result})
